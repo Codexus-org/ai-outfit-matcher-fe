@@ -1,12 +1,13 @@
-import { Mail } from "lucide-react";
-import { Button } from "../components/button";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AppRouter } from "./route";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline text-violet-500">Hello form the App!</h1>
-      <Button><Mail size={16} /></Button>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <AppRouter />
+    </QueryClientProvider>
   );
 }
 
