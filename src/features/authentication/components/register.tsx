@@ -42,8 +42,15 @@ export const Register = () => {
             {isError && <div className="text-center text-sm font-medium text-rose-600">{error?.message}</div>}
           </div>
         </section>
+
+        <hr />
         <div>
-          Have an account ? <a href="/login">Login</a>
+          <Button variant="outline" startContent isFull={true}>
+            Register with Google
+          </Button>
+        </div>
+        <div>
+          Already have an account? <a href="/login">Login</a>
         </div>
       </div>
     </AuthLayout>
