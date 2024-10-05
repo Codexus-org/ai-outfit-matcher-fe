@@ -1,59 +1,68 @@
-import { Mail, PenLineIcon, Verified } from "lucide-react";
-import { Button } from "./button";
-import { Meta, StoryObj } from "@storybook/react"
+import { Mail, PenLineIcon, Verified } from 'lucide-react';
+import { Button } from './button';
+import { Meta, StoryObj } from '@storybook/react';
+import { GoogleIcon } from './googleIcon';
 const meta: Meta<typeof Button> = {
-  component: Button,
-  tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      control: 'select',
-      options: ['primary', 'secondary', 'outline'],
+    component: Button,
+    tags: ['autodocs'],
+    argTypes: {
+        variant: {
+            control: 'select',
+            options: ['primary', 'secondary', 'outline'],
+        },
+        iconOnly: {
+            type: 'boolean',
+            control: 'select',
+            options: [true, false],
+        },
     },
-    iconOnly: {
-      type: 'boolean',
-      control: 'select',
-      options: [true, false],
-    },
-  },
-}
-export default meta
+};
+export default meta;
 type Story = StoryObj<typeof Button>;
 export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Button',
-  },
-}
+    args: {
+        variant: 'primary',
+        children: 'Button',
+    },
+};
 export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Button',
-  },
+    args: {
+        variant: 'secondary',
+        children: 'Button',
+    },
 };
 export const Outline: Story = {
-  args: {
-    variant: 'outline',
-    children: 'Hello',
-  },
+    args: {
+        variant: 'outline',
+        children: 'Hello',
+    },
 };
 export const WithIconOnStart: Story = {
-  args: {
-    variant: 'outline',
-    children: 'Hello',
-    startContent: <PenLineIcon size={16} />,
-  },
+    args: {
+        variant: 'outline',
+        children: 'Hello',
+        startContent: <PenLineIcon size={16} />,
+    },
 };
 export const WithIconOnEnd: Story = {
-  args: {
-    variant: 'outline',
-    children: 'Hello',
-    endContent: <Verified size={16} />,
-  },
+    args: {
+        variant: 'outline',
+        children: 'Hello',
+        endContent: <Verified size={16} />,
+    },
 };
 export const WithIconOnly: Story = {
-  args: {
-    variant: 'primary',
-    iconOnly: true,
-    children: <Mail />,
-  },
-}
+    args: {
+        variant: 'primary',
+        iconOnly: true,
+        children: <Mail />,
+    },
+};
+
+export const WithGoogleIcon: Story = {
+    args: {
+        variant: 'primary',
+        iconOnly: true,
+        children: <GoogleIcon />,
+    },
+};
