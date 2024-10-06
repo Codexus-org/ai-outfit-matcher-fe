@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import React from 'react';
 
 const textareaStyle = tv({
-  base: 'block w-full border font-medium placeholder:font-light placeholder:text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-primary-500 shadow-sm transition duration-200',
+  base: 'block w-full border font-base placeholder:font-light placeholder:text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-primary-500 shadow-sm transition duration-200',
   variants: {
     size: {
       small: 'text-sm px-2 py-1 rounded-md',
