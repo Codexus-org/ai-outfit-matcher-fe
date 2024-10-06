@@ -1,42 +1,22 @@
-import { Button } from '../../../components/ui/button'
-import { Textarea } from '../../../components/ui/textarea'
-import { Input } from '../../../components/ui/input'
-import { Select } from '../../../components/ui/select'
-import weathers from '../constant/weathers'
-import eventOptions from '../constant/event'
+import { Textarea } from "../../../components/ui/textarea";
+import { Button } from "../../../components/ui/button";
 
 export default function FormPrompt() {
   return (
-      <form action="" className='space-y-3'>
-        <div>
-          <label className='font-medium text-base text-slate-500' htmlFor="">Name</label>
-          <Input placeholder='name' />
-        </div>
-        <div>
-          <label className='font-medium text-base text-slate-500' htmlFor="">Weather</label>
-          <Select caption='Weather' options={weathers} />
-        </div>
-        <div>
-          <label className='font-medium text-base text-slate-500' htmlFor="">Occasion</label>
-          <Select caption='Occasion' options={eventOptions} />
-        </div>
-        <div>
-          <label className='font-medium text-base text-slate-500' htmlFor="">clothes</label>
-          <Input placeholder='clothes' />
-        </div>
-        <div>
-          <label className='font-medium text-base text-slate-500' htmlFor="">pants</label>
-          <Input placeholder='pants' />
-        </div>
-        <div>
-          <label className='font-medium text-base text-slate-500' htmlFor="">shoes</label>
-          <Input placeholder='shoes' />
-        </div>
-        <div>
-          <label className='font-medium text-base text-slate-500' htmlFor="">description</label>
-          <Textarea placeholder='description' rows={5} />
-        </div>
-        <Button>Generate</Button>
-      </form>
-  )
+    <div className="grid grid-cols-2 gap-4 mt-3">
+      <div className="space-y-2">
+        <h3 className="text-xl">Input Prompt</h3>
+        <Textarea placeholder="Prompt" rows={5} />
+        <Button>Submit</Button>
+      </div>
+      <div className="space-y-2">
+        <h3 className="text-xl">Example Prompt</h3>
+        <p className="text-base font-normal text-slate-500">
+          Generate an image of a men's outfit suitable for going to campus in
+          rainy weather, featuring a long-sleeved, light blue denim button-up
+          shirt, dark blue slim-fit jeans, and navy blue waterproof sneakers
+        </p>
+      </div>
+    </div>
+  );
 }
