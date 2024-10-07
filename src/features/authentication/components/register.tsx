@@ -63,7 +63,10 @@ export const Register = () => {
                     {isError && <div className="text-center text-sm font-medium text-rose-600">{error?.message}</div>}
                 </div>
                 <div className="text-center">
-                    Already have an account? <a href="/login">Login</a>
+                    Already have an account?{' '}
+                    <a href="/login" className="hover:underline">
+                        Login
+                    </a>
                 </div>
             </div>
         </AuthLayout>
