@@ -9,17 +9,27 @@ export default function Collections() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<LoggedInUser | null>(null);
   console.log(user)
+
   useEffect(() => {
     const token = Cookies.get('token');
-    const getUser = JSON.parse(localStorage.getItem('user') as string)
+    const accessToken = Cookies.get('accessToken');
+   
+    const userCookie = Cookies.get('user');
+    const parsedUserCookie = userCookie ? JSON.parse(userCookie) : null;
+
+    const getUser = JSON.parse(localStorage.getItem('user') as string);
+
     if (token) {
       setIsAuthenticated(true);
-      setUser(getUser)
+      setUser(getUser);
+    } else if (accessToken) {
+      setIsAuthenticated(true);
+      setUser(parsedUserCookie);
     } else {
       setIsAuthenticated(false);
       window.location.href = '/login';
     }
-  }, []);
+   }, []);
 
   if (!isAuthenticated) return null;
 
