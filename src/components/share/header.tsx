@@ -1,7 +1,35 @@
+import { useMutation } from '@tanstack/react-query';
 import { Button } from '../ui/button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Header() {
+  const navigate = useNavigate();
+
+  const {
+    mutate: handleSubmitLogout
+  } = useMutation({
+      mutationKey: ['logout'],
+      mutationFn: async () => {
+        try {
+          const res = await fetch("http://localhost:8000/outfitmatcher/api/v1/logout", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+          })
+          
+          const data = await res.json()
+          return data
+        } catch (error) {
+          console.log(error)
+          throw new Error("Internal server error");          
+        }
+      },
+      onSuccess: () => navigate('/login'),
+  });
+
   return (
     <section className='w-full flex justify-between items-center px-5 py-2 border-b-2 border-violet-600'>
       <div className='text-2xl font-medium'>
@@ -13,7 +41,7 @@ export default function Header() {
       </div>
       <div>
         <form action="">
-          <Button> Logout</Button>
+          <Button onClick={() => handleSubmitLogout()}> Logout</Button>
         </form>
       </div>
     </section>

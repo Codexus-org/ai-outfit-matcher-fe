@@ -41,9 +41,11 @@ export const Login = () => {
                             {showPassword ? <EyeIcon size={16} /> : <EyeOffIcon size={16} />}
                         </Button>
                     </div>
+                  
                     <Button disabled={isPending} onClick={() => handleSubmitLogin()} className="flex w-full justify-center">
                         Login
                     </Button>
+                    {isError && <div className="text-center text-sm font-medium text-red-500">{error.message}</div>}
 
                     {/* separator */}
                     <div className="flex flex-row gap-3 py-4">
@@ -57,17 +59,13 @@ export const Login = () => {
                     </div>
 
                     {/* button with google */}
-                    <Button isFull variant="outline" startContent={<GoogleIcon />}>
+                    <form action="http://localhost:8000/outfitmatcher/api/v1/continue-with-google" method='POST'>
+                      <Button isFull variant="outline" startContent={<GoogleIcon />} >
                         Continue with Google
-                    </Button>
+                      </Button>
+                    </form>
                 </section>
-                {isError && <div className="text-center text-sm font-medium text-red-500">{error.message}</div>}
-                <div className="text-center">
-                    Don't have an account?{' '}
-                    <a href="/register" className=" hover:underline">
-                        Register
-                    </a>
-                </div>
+                <p className="text-center">Don&apos;t have an account? <a className="text-blue-500 hover:underline" href="/register">Register</a></p>
                 <Footer />
             </div>
         </AuthLayout>
