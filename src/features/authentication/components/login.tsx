@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { loginUser } from '../services/login';
 import { useNavigate } from 'react-router-dom';
 import { GoogleIcon } from '../../../components/ui/googleIcon';
+// import { LoginGoogle } from '../services/loginGoogle';
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -51,10 +52,10 @@ export const Login = () => {
                     </div>
 
                     {/* button with google */}
-                    <form action="http://localhost:8000/outfitmatcher/api/v1/continue-with-google" method='post'>
-                    <Button isFull variant="outline" startContent={<GoogleIcon />}>
+                    <form action="http://localhost:8000/outfitmatcher/api/v1/continue-with-google" method='POST'>
+                      <Button isFull variant="outline" startContent={<GoogleIcon />} >
                         Continue with Google
-                    </Button>
+                      </Button>
                     </form>
                 </section>
                 <p className="text-center">Don&apos;t have an account? <a className="text-blue-500 hover:underline" href="/register">Register</a></p>

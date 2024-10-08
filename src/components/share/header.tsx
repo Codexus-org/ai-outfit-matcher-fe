@@ -1,13 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import { Button } from '../ui/button'
 import { Link, useNavigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
 
 export default function Header() {
   const navigate = useNavigate();
 
   const {
-    mutate: handleSubmitLogin
+    mutate: handleSubmitLogout
   } = useMutation({
       mutationKey: ['logout'],
       mutationFn: async () => {
@@ -21,7 +20,6 @@ export default function Header() {
             body: JSON.stringify({}),
           })
           
-          Cookies.remove('token');
           const data = await res.json()
           return data
         } catch (error) {
@@ -43,7 +41,7 @@ export default function Header() {
       </div>
       <div>
         <form action="">
-          <Button onClick={() => handleSubmitLogin()}> Logout</Button>
+          <Button onClick={() => handleSubmitLogout()}> Logout</Button>
         </form>
       </div>
     </section>
