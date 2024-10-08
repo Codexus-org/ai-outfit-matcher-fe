@@ -1,18 +1,19 @@
 import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
 import { AuthLayout } from './auth.layout';
-import { AtSign, EyeOffIcon } from 'lucide-react';
+import { AtSign, EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { loginUser } from '../services/login';
 import { useNavigate } from 'react-router-dom';
 import { GoogleIcon } from '../../../components/ui/googleIcon';
-// import { LoginGoogle } from '../services/loginGoogle';
+import Footer from '../../../components/share/footer';
 
 export const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const {
         mutate: handleSubmitLogin,
@@ -33,8 +34,14 @@ export const Login = () => {
                     <p className="text-center">welcome back!</p>
                 </section>
                 <section className="space-y-3">
-                    <Input withIcon icon={<AtSign size={16} />} placeholder="Email" type='email' required onChange={(e) => setEmail(e.target.value)} />
-                    <Input withIcon icon={<EyeOffIcon size={16} />} placeholder="Password" type="password" required onChange={(e) => setPassword(e.target.value)} />
+                    <Input withIcon icon={<AtSign size={16} />} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                    <div className="relative">
+                        <Input withIcon {...{ icon: showPassword ? <EyeIcon size={16} /> : <EyeOffIcon size={16} /> }} placeholder="Password" {...{ type: showPassword ? 'text' : 'password' }} onChange={(e) => setPassword(e.target.value)} />
+                        <Button type="button" onClick={() => setShowPassword(!showPassword)} className='absolute left-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent focus:bg-transparent border-0 active:bg-transparent'>
+                            {showPassword ? <EyeIcon size={16} /> : <EyeOffIcon size={16} />}
+                        </Button>
+                    </div>
+                  
                     <Button disabled={isPending} onClick={() => handleSubmitLogin()} className="flex w-full justify-center">
                         Login
                     </Button>
@@ -59,6 +66,7 @@ export const Login = () => {
                     </form>
                 </section>
                 <p className="text-center">Don&apos;t have an account? <a className="text-blue-500 hover:underline" href="/register">Register</a></p>
+                <Footer />
             </div>
         </AuthLayout>
     );
