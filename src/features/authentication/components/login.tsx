@@ -36,8 +36,8 @@ export const Login = () => {
                 <section className="space-y-3">
                     <Input withIcon icon={<AtSign size={16} />} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
                     <div className="relative">
-                        <Input withIcon icon={<EyeOffIcon size={16} />} placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
-                        <Button type="button" onClick={() => setShowPassword(!showPassword)}>
+                        <Input withIcon {...{ icon: showPassword ? <EyeIcon size={16} /> : <EyeOffIcon size={16} /> }} placeholder="Password" {...{ type: showPassword ? 'text' : 'password' }} onChange={(e) => setPassword(e.target.value)} />
+                        <Button type="button" onClick={() => setShowPassword(!showPassword)} className='absolute left-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent focus:bg-transparent border-0 active:bg-transparent'>
                             {showPassword ? <EyeIcon size={16} /> : <EyeOffIcon size={16} />}
                         </Button>
                     </div>
