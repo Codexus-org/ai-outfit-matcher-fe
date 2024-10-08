@@ -2,6 +2,10 @@ import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 import { jwtPayload, LoginUserArgs } from '../types/entity';
 
+interface Issue {
+  message: string;
+}
+
 export async function loginUser({ email, password }: LoginUserArgs) {
   try {
     const res = await fetch("http://localhost:8000/outfitmatcher/api/v1/login", {
@@ -13,11 +17,18 @@ export async function loginUser({ email, password }: LoginUserArgs) {
       body: JSON.stringify({ email, password }),
     });
 
-    if (res.status === 401) {
-      throw new Error("Invalid email or password");
+    const data = await res.json();
+    
+    if (!res.ok) {
+      if (data.error && data.error.issues) {
+        throw new Error(data.error.issues.map((issue: Issue) => issue.message).join(", "));
+      } else if (data.message) {
+        throw new Error(data.message); 
+      } else {
+        throw new Error("Something went wrong");
+      }
     }
 
-    const data = await res.json();
     Cookies.set('token', data.data.accessToken);
 
     const token = Cookies.get('token');
@@ -28,7 +39,10 @@ export async function loginUser({ email, password }: LoginUserArgs) {
     
     return data;
   } catch (err) {
-    console.log(err);
-    throw new Error("Invalid email or password");
+    if (err instanceof Error) {
+      throw new Error(err.message); // If it's an Error, handle accordingly
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 }

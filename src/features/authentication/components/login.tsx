@@ -45,7 +45,15 @@ export const Login = () => {
                     <Button disabled={isPending} onClick={() => handleSubmitLogin()} className="flex w-full justify-center">
                         Login
                     </Button>
-                    {isError && <div className="text-center text-sm font-medium text-red-500">{error.message}</div>}
+                    {isError && <div className="text-center text-sm font-medium text-red-500">
+                      {Array.isArray(error) ? (
+                        error.map((err, index) => (
+                          <div key={index}>{err.message}</div>
+                          ))
+                        ) : (
+                          <div>{error?.message}</div>
+                      )}
+                    </div>}
 
                     {/* separator */}
                     <div className="flex flex-row gap-3 py-4">
