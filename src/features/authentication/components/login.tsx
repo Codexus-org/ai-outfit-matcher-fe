@@ -32,11 +32,12 @@ export const Login = () => {
                     <p className="text-center">welcome back!</p>
                 </section>
                 <section className="space-y-3">
-                    <Input withIcon icon={<AtSign size={16} />} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                    <Input withIcon icon={<EyeOffIcon size={16} />} placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
+                    <Input withIcon icon={<AtSign size={16} />} placeholder="Email" type='email' required onChange={(e) => setEmail(e.target.value)} />
+                    <Input withIcon icon={<EyeOffIcon size={16} />} placeholder="Password" type="password" required onChange={(e) => setPassword(e.target.value)} />
                     <Button disabled={isPending} onClick={() => handleSubmitLogin()} className="flex w-full justify-center">
                         Login
                     </Button>
+                    {isError && <div className="text-center text-sm font-medium text-red-500">{error.message}</div>}
 
                     {/* separator */}
                     <div className="flex flex-row gap-3 py-4">
@@ -50,11 +51,13 @@ export const Login = () => {
                     </div>
 
                     {/* button with google */}
+                    <form action="http://localhost:8000/outfitmatcher/api/v1/continue-with-google" method='post'>
                     <Button isFull variant="outline" startContent={<GoogleIcon />}>
                         Continue with Google
                     </Button>
+                    </form>
                 </section>
-                {isError && <div className="text-center text-sm font-medium text-red-500">{error.message}</div>}
+                <p className="text-center">Don&apos;t have an account? <a className="text-blue-500 hover:underline" href="/register">Register</a></p>
             </div>
         </AuthLayout>
     );
