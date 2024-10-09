@@ -5,9 +5,8 @@ import { AtSign, EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { loginUser } from '../services/login';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GoogleIcon } from '../../../components/ui/googleIcon';
-import Footer from '../../../components/share/footer';
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -51,7 +50,11 @@ export const Login = () => {
                           <div key={index}>{err.message}</div>
                           ))
                         ) : (
-                          <div>{error?.message}</div>
+                          <div>
+                            {error?.message.split(',').map((msg, i) => (
+                              <p key={i}>{msg.trim()}</p> 
+                            ))}
+                          </div>
                       )}
                     </div>}
 
@@ -73,8 +76,7 @@ export const Login = () => {
                       </Button>
                     </form>
                 </section>
-                <p className="text-center">Don&apos;t have an account? <a className="text-blue-500 hover:underline" href="/register">Register</a></p>
-                <Footer />
+                <p className="text-center">Don&apos;t have an account? <Link className="text-blue-500 hover:underline" to="/register">Register</Link></p>
             </div>
         </AuthLayout>
     );

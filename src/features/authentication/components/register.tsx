@@ -6,6 +6,7 @@ import { AtSign, EyeIcon, EyeOffIcon, SquareUserRound } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '../services/register';
 import { GoogleIcon } from '../../../components/ui/googleIcon';
+import { Link } from 'react-router-dom';
 export const Register = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -42,7 +43,6 @@ export const Register = () => {
                     <div className="space-y-2">
                         <Input withIcon icon={<SquareUserRound size={16} />} placeholder="Username" onChange={(e) => setUserName(e.target.value)} />
                         <Input withIcon icon={<AtSign size={16} />} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                        {/* <Input withIcon icon={<EyeOffIcon size={16} />} placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} /> */}
                         <div className="relative">
                         <Input withIcon {...{ icon: showPassword ? <EyeIcon size={16} /> : <EyeOffIcon size={16} /> }} placeholder="Password" {...{ type: showPassword ? 'text' : 'password' }} onChange={(e) => setPassword(e.target.value)} />
                           <Button type="button" onClick={() => setShowPassword(!showPassword)} className='absolute left-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent focus:bg-transparent border-0 active:bg-transparent'>
@@ -60,7 +60,11 @@ export const Register = () => {
                                 <div key={index}>{err.message}</div>
                               ))
                           ) : (
-                              <div>{error?.message}</div>
+                            <div>
+                              {error?.message.split(',').map((msg, i) => (
+                                <p key={i}>{msg.trim()}</p> 
+                              ))}
+                            </div>
                           )}
                         </div>}
                     </div>
@@ -83,9 +87,7 @@ export const Register = () => {
                       Continue with Google
                   </Button>
                 </form>
-                <div className="text-center">
-                    Already have an account? <a href="/login" className='text-blue-500 hover:underline'>Login</a>
-                </div>
+                <p className="text-center"> Already have an account? <Link to="/login" className='text-blue-500 hover:underline'>Login</Link></p>
             </div>
         </AuthLayout>
     );
