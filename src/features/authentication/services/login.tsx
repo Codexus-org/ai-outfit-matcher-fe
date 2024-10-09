@@ -1,10 +1,6 @@
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
-import { jwtPayload, LoginUserArgs } from '../types/entity';
-
-interface Issue {
-  message: string;
-}
+import { Issue, jwtPayload, LoginUserArgs } from '../types/entity';
 
 export async function loginUser({ email, password }: LoginUserArgs) {
   try {
@@ -40,9 +36,12 @@ export async function loginUser({ email, password }: LoginUserArgs) {
     return data;
   } catch (err) {
     if (err instanceof Error) {
-      throw new Error(err.message); // If it's an Error, handle accordingly
+      if(err.message == 'Failed to fetch') {
+        throw new Error("Something went wrong");
+      }
+      throw new Error(err.message); 
     } else {
-      throw new Error("An unknown error occurred");
+      throw new Error("Something went wrong");
     }
   }
 }

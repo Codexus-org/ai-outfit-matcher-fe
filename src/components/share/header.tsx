@@ -40,9 +40,7 @@ export default function Header() {
         <Link to="/collections" className='mr-5 text-base font-semibold hover:text-violet-600'>Collections</Link>
       </div>
       <div>
-        <form action="">
-          <Button onClick={() => handleSubmitLogout()}> Logout</Button>
-        </form>
+        <Button onClick={() => handleSubmitLogout()}> Logout</Button>
       </div>
     </section>
   )
