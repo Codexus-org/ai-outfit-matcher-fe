@@ -15,3 +15,7 @@ export interface RegisterArgs {
   email: string;
   password: string;
 }
+
+export interface Issue {
+  message: string;
+}

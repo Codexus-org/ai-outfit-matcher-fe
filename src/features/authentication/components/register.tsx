@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { AuthLayout } from './auth.layout';
-import { AtSign, EyeOffIcon, SquareUserRound } from 'lucide-react';
+import { AtSign, EyeIcon, EyeOffIcon, SquareUserRound } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '../services/register';
 import { GoogleIcon } from '../../../components/ui/googleIcon';
@@ -13,6 +13,7 @@ export const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isRegister, setIsRegister] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const {
         mutate: handleSubmitRegister,
@@ -41,7 +42,13 @@ export const Register = () => {
                     <div className="space-y-2">
                         <Input withIcon icon={<SquareUserRound size={16} />} placeholder="Username" onChange={(e) => setUserName(e.target.value)} />
                         <Input withIcon icon={<AtSign size={16} />} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                        <Input withIcon icon={<EyeOffIcon size={16} />} placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
+                        {/* <Input withIcon icon={<EyeOffIcon size={16} />} placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} /> */}
+                        <div className="relative">
+                        <Input withIcon {...{ icon: showPassword ? <EyeIcon size={16} /> : <EyeOffIcon size={16} /> }} placeholder="Password" {...{ type: showPassword ? 'text' : 'password' }} onChange={(e) => setPassword(e.target.value)} />
+                          <Button type="button" onClick={() => setShowPassword(!showPassword)} className='absolute left-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-transparent focus:bg-transparent border-0 active:bg-transparent'>
+                            {showPassword ? <EyeIcon size={16} /> : <EyeOffIcon size={16} />}
+                          </Button>
+                        </div>
                         <Button isFull disabled={isPending} onClick={() => handleSubmitRegister()}>
                             Register
                         </Button>
@@ -70,14 +77,14 @@ export const Register = () => {
                     </div>
                 </div>
 
-                {/* register with google */}
-                <div>
-                    <Button isFull variant="outline" startContent={<GoogleIcon />} onClick={() => handleSubmitRegister()}>
-                        Register with Google
-                    </Button>
-                </div>
+                {/* continue with google */}
+                <form action="http://localhost:8000/outfitmatcher/api/v1/continue-with-google" method='POST'>
+                  <Button isFull variant="outline" startContent={<GoogleIcon />}>
+                      Continue with Google
+                  </Button>
+                </form>
                 <div className="text-center">
-                    Already have an account? <a href="/login" className='text-blue-500'>Login</a>
+                    Already have an account? <a href="/login" className='text-blue-500 hover:underline'>Login</a>
                 </div>
             </div>
         </AuthLayout>
