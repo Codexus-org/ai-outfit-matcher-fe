@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import output from '../../../assets/image/output.png';
 import Header from '../../../components/share/header';
 import Card from './card';
 import FormPrompt from './form.prompt';
@@ -59,7 +58,7 @@ export default function PromptPage() {
 
     const handleDataResponse = (data: DataResponse) => {
         setData(data);
-        setImage(data?.imageOutfit || output);
+        setImage(data?.imageOutfit);
         setDescription(data);
     };
     // const image = output;
@@ -67,8 +66,8 @@ export default function PromptPage() {
     // const dataDescription = defaultDescription;
     // const dataDescription = null
     console.log(data);
-    console.log(image);
-    console.log(description);
+    // console.log(image);
+    // console.log(description);
 
     return (
         <>
@@ -76,9 +75,11 @@ export default function PromptPage() {
             <section className="container mx-auto p-5">
                 <h1 className="text-3xl font-semibold">Hallo {user?.username} 👋</h1>
                 <FormPrompt getData={handleDataResponse} />
+
                 <div className="grid grid-cols-2 gap-4 mt-5">
-                    {/* {image !== null ? <Card img={image} /> : <Card img="" />} */}
-                    <Card img={image || ''} />
+                    {image !== null ? <Card img={data?.imageOutfit || ''} /> : <Card img="" />}
+
+                    {/* <Card img={data?.imageOutfit || ''} /> */}
                     {/* {dataDescription !== null ? <TableDescription description={dataDescription} /> : <TableDescription description={defaultDescription} />} */}
                     <TableDescription description={description || defaultDescription} />
                 </div>
