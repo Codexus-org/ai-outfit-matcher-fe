@@ -2,7 +2,6 @@ import { Textarea } from '../../../components/ui/textarea';
 import { Button } from '../../../components/ui/button';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
-import { PromptSubmit } from '../services/prompt';
 import { DataResponse } from '../types/entity';
 // import { handlePromptSubmit } from '../services/prompt';
 
@@ -19,8 +18,29 @@ export default function FormPrompt({ getData }: IFormPromptProps) {
         isPending,
     } = useMutation({
         mutationKey: ['prompt'],
-        mutationFn: () => PromptSubmit(),
-        onSuccess: (data) => getData(data?.items[0]),
+        mutationFn: async () => {
+            try {
+                const res = await fetch('http://localhost:8000/outfitmatcher/api/v1/outfit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ prompt }),
+                });
+                const data = res.json();
+                return data;
+            } catch (error) {
+                if (error instanceof Error) {
+                    if (error.message == 'Failed to fetch') {
+                        throw new Error('Something went wrong');
+                    }
+                    throw new Error(error.message);
+                }
+                throw new Error('Something went wrong');
+            }
+        },
+        onSuccess: (data) => getData(data?.data),
     });
 
     return (
