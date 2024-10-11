@@ -1,9 +1,10 @@
 import Header from "../../../components/share/header";
 import CardCollection from "./card.collection";
-import example from "../../../assets/image/widget5.png"
 import { useEffect, useState } from "react";
 import { LoggedInUser } from "../../promptpage/types/entity";
 import Cookies from "js-cookie";
+import { useQuery } from "@tanstack/react-query";
+import { IDataCollections } from "../types/entity";
 
 export default function Collections() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,15 +32,37 @@ export default function Collections() {
     }
    }, []);
 
+  const { data: dataCollections, isLoading, isError } = useQuery<IDataCollections[]>({
+    queryKey: ['collections'],
+    queryFn: async () => {
+      const res = await fetch ('http://localhost:8000/outfitmatcher/api/v1/outfit/collections', {
+        method: 'GET',
+        credentials: 'include'
+      })
+      const data = await res.json()
+      return data.data
+    }
+  })
+
   if (!isAuthenticated) return null;
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (isError) {
+    return <div>Cannot Load Data</div>
+  }
+
+  console.log(dataCollections)
 
   return (
     <>
       <Header />
       <section className="container mx-auto grid grid-cols-3 py-5 gap-4">
-        <CardCollection img={example} />
-        <CardCollection img={example} />
-        <CardCollection img={example} />
+        {dataCollections?.map((collection : IDataCollections) => (
+          <CardCollection key={collection._id} dataImage={collection} />
+        ))}
       </section>
     </>
   )

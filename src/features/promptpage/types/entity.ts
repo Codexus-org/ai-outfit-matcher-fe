@@ -13,3 +13,7 @@ export interface DataResponse {
     description: string;
     imageOutfit: string;
 }
+export interface IDataImage {
+  imageOutfit: string;
+  _id: string;
+}
