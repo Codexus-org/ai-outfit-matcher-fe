@@ -49,7 +49,7 @@ export default function FormPrompt({ getData }: IFormPromptProps) {
                 <h3 className="text-xl">Input Prompt</h3>
                 <Textarea placeholder="Prompt" value={prompt} rows={5} onChange={(e) => setPrompt(e.target.value)} />
                 <Button disabled={isPending} onClick={() => handlePrompt()}>
-                    Submit
+                  {isPending ? 'Loading...' : 'Submit'}
                 </Button>
                 {isError && <p className="flex flex-wrap text-red-500">Something went wrong</p>}
             </div>

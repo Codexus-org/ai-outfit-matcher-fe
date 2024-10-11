@@ -4,13 +4,13 @@ import Card from './card';
 import FormPrompt from './form.prompt';
 import TableDescription from './table.description';
 import Cookies from 'js-cookie';
-import { DataResponse, LoggedInUser } from '../types/entity';
+import { DataResponse, IDataImage, LoggedInUser } from '../types/entity';
 
 export default function PromptPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<LoggedInUser | null>(null);
     const [data, setData] = useState<DataResponse | null>();
-    const [image, setImage] = useState<string>('');
+    const [dataImage, setDataImage] = useState<IDataImage | null>();
     const [description, setDescription] = useState<DataResponse | null>(null);
 
     useEffect(() => {
@@ -36,15 +36,6 @@ export default function PromptPage() {
 
     if (!isAuthenticated) return null;
 
-    // const description = {
-    //   weather: 'rain',
-    //   occasion: 'formal',
-    //   clothes: 't-shirt',
-    //   pants: 'jeans',
-    //   shoes: 'sneakers',
-    //   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum saepe nam vel quod doloremque reprehenderit officia placeat, eos at omnis rerum voluptas mollitia a amet quos aspernatur quo veritatis atque?"
-    // }
-
     const defaultDescription: DataResponse = {
         weatherCategory: '',
         occasionCategory: '',
@@ -55,19 +46,14 @@ export default function PromptPage() {
         imageOutfit: '',
         _id: '',
     };
-
+  
     const handleDataResponse = (data: DataResponse) => {
         setData(data);
-        setImage(data?.imageOutfit);
+        setDataImage(data);
         setDescription(data);
     };
-    // const image = output;
-    // const image = null
-    // const dataDescription = defaultDescription;
-    // const dataDescription = null
-    console.log(data);
-    // console.log(image);
-    // console.log(description);
+
+    console.log(data)
 
     return (
         <>
@@ -77,8 +63,7 @@ export default function PromptPage() {
                 <FormPrompt getData={handleDataResponse} />
 
                 <div className="grid grid-cols-2 gap-4 mt-5">
-                    {image !== null ? <Card img={data?.imageOutfit || ''} /> : <Card img="" />}
-
+                    <Card dataImage={dataImage || null} />
                     {/* <Card img={data?.imageOutfit || ''} /> */}
                     {/* {dataDescription !== null ? <TableDescription description={dataDescription} /> : <TableDescription description={defaultDescription} />} */}
                     <TableDescription description={description || defaultDescription} />
