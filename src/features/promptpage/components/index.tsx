@@ -9,25 +9,18 @@ import { DataResponse, IDataImage, LoggedInUser } from '../types/entity';
 export default function PromptPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<LoggedInUser | null>(null);
-    const [data, setData] = useState<DataResponse | null>();
+    const [_data, setData] = useState<DataResponse | null>();
     const [dataImage, setDataImage] = useState<IDataImage | null>();
     const [description, setDescription] = useState<DataResponse | null>(null);
 
     useEffect(() => {
-        const token = Cookies.get('token');
         const accessToken = Cookies.get('accessToken');
-
-        const userCookie = Cookies.get('user');
-        const parsedUserCookie = userCookie ? JSON.parse(userCookie) : null;
-
         const getUser = JSON.parse(localStorage.getItem('user') as string);
 
-        if (token) {
+        if (accessToken) {
+            setUser(getUser);
             setIsAuthenticated(true);
             setUser(getUser);
-        } else if (accessToken) {
-            setIsAuthenticated(true);
-            setUser(parsedUserCookie);
         } else {
             setIsAuthenticated(false);
             window.location.href = '/login';
@@ -46,14 +39,12 @@ export default function PromptPage() {
         imageOutfit: '',
         _id: '',
     };
-  
+
     const handleDataResponse = (data: DataResponse) => {
         setData(data);
         setDataImage(data);
         setDescription(data);
     };
-
-    console.log(data)
 
     return (
         <>

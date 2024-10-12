@@ -1,8 +1,9 @@
 import { Issue, LoginUserArgs } from '../types/entity';
+import Cookies from 'js-cookie';
 
 export async function loginUser({ email, password }: LoginUserArgs) {
     try {
-        const res = await fetch('http://localhost:8000/outfitmatcher/api/v1/login', {
+        const res = await fetch('http://108.136.163.215:8000/outfitmatcher/api/v1/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -12,6 +13,10 @@ export async function loginUser({ email, password }: LoginUserArgs) {
         });
 
         const data = await res.json();
+
+        localStorage.setItem('user', JSON.stringify(data.data.payload));
+        Cookies.set('accessToken', data.data.accessToken);
+        Cookies.set('refreshToken', data.data.refreshToken);
 
         if (!res.ok) {
             if (data.error && data.error.issues) {
