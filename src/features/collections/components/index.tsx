@@ -9,41 +9,35 @@ import { IDataCollections } from "../types/entity";
 export default function Collections() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<LoggedInUser | null>(null);
-  // const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
-
-  console.log(user)
-
+  
   useEffect(() => {
-    const token = Cookies.get('token');
-    const accessToken = Cookies.get('accessToken');
-   
-    const userCookie = Cookies.get('user');
-    const parsedUserCookie = userCookie ? JSON.parse(userCookie) : null;
-
+    // const accessToken = Cookies.get('accessToken');
     const getUser = JSON.parse(localStorage.getItem('user') as string);
-
-    if (token) {
-      setIsAuthenticated(true);
-      setUser(getUser);
-    } else if (accessToken) {
-      setIsAuthenticated(true);
-      setUser(parsedUserCookie);
+    
+    if (getUser) {
+        setUser(getUser);
+        setIsAuthenticated(true);
+        setUser(getUser);
     } else {
-      setIsAuthenticated(false);
-      window.location.href = '/login';
+        setIsAuthenticated(false);
+        window.location.href = '/login';
     }
-   }, []);
-
+  }, []);
+  const user_id = user?.id
+  console.log(user_id)
   const { data: dataCollections, isLoading, isError } = useQuery<IDataCollections[]>({
-    queryKey: ['collections'],
+    queryKey: ['collections', user_id],
     queryFn: async () => {
-      const res = await fetch (`http://108.136.163.215:8000/outfitmatcher/api/v1/outfit/collections/${user?.id}`, {
+      if (!user_id) return [];
+      const res = await fetch (`http://108.136.163.215:8000/outfitmatcher/api/v1/outfit/collections/${user_id}`, {
         method: 'GET',
         credentials: 'include'
       })
       const data = await res.json()
+      console.log(data)
       return data.data
-    }
+    },
+    enabled: !!user?.id
   })
 
   if (!isAuthenticated) return null;
