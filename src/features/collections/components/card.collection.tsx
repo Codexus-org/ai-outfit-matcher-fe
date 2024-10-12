@@ -1,5 +1,5 @@
 import { Button } from "../../../components/ui/button";
-import { DownloadIcon, TrashIcon } from "lucide-react";
+import { DownloadIcon, Share2, TrashIcon } from "lucide-react";
 import { IDataCollections } from "../types/entity";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../app";
@@ -53,6 +53,10 @@ export default function CardCollection({dataImage} : CardProps) {
     }
   };
 
+  const handleShareToTwitter = () => {
+    const twitterShareUrl = `https://twitter.com/intent/tweet?text=Check%20out%20this%20outfit!&url=${encodeURIComponent(imageOutfit)}`;
+    window.open(twitterShareUrl, '_blank');
+  };
 
   return (
     <section className=''>
@@ -61,7 +65,7 @@ export default function CardCollection({dataImage} : CardProps) {
           <img src={imageOutfit} alt="image can't access" />
         </div>
         <div className='flex gap-3 py-2 px-3'>
-          {/* <Button iconOnly><Share2 /></Button> */}
+          <Button iconOnly onClick={handleShareToTwitter}><Share2 /></Button>
           <Button size="small" startContent={<DownloadIcon/>} onClick={handleDownload}>Download</Button>
           <Button size="small" startContent={<TrashIcon/>} variant="outline" className="text-white bg-red-500 hover:bg-red-400 border-none active:bg-red-400" onClick={() => handleDeleteImage()}>Delete</Button>
         </div>
