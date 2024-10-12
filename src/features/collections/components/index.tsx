@@ -1,31 +1,31 @@
 import Header from "../../../components/share/header";
 import CardCollection from "./card.collection";
 import { useEffect, useState } from "react";
-// import { LoggedInUser } from "../../promptpage/types/entity";
+import { LoggedInUser } from "../../promptpage/types/entity";
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
 import { IDataCollections } from "../types/entity";
 
 export default function Collections() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [user, setUser] = useState<LoggedInUser | null>(null);
-  // console.log(user)
+  const [user, setUser] = useState<LoggedInUser | null>(null);
+  console.log(user)
 
   useEffect(() => {
     const token = Cookies.get('token');
     const accessToken = Cookies.get('accessToken');
    
-    // const userCookie = Cookies.get('user');
-    // const parsedUserCookie = userCookie ? JSON.parse(userCookie) : null;
+    const userCookie = Cookies.get('user');
+    const parsedUserCookie = userCookie ? JSON.parse(userCookie) : null;
 
-    // const getUser = JSON.parse(localStorage.getItem('user') as string);
+    const getUser = JSON.parse(localStorage.getItem('user') as string);
 
     if (token) {
       setIsAuthenticated(true);
-      // setUser(getUser);
+      setUser(getUser);
     } else if (accessToken) {
       setIsAuthenticated(true);
-      // setUser(parsedUserCookie);
+      setUser(parsedUserCookie);
     } else {
       setIsAuthenticated(false);
       window.location.href = '/login';
