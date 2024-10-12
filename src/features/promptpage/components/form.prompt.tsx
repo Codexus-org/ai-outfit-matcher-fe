@@ -10,7 +10,7 @@ interface IFormPromptProps {
 
 export default function FormPrompt({ getData }: IFormPromptProps) {
     const [prompt, setPrompt] = useState('');
-
+    const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
     const {
         mutate: handlePrompt,
         isError,
@@ -19,7 +19,7 @@ export default function FormPrompt({ getData }: IFormPromptProps) {
         mutationKey: ['prompt'],
         mutationFn: async () => {
             try {
-                const res = await fetch('http://108.136.163.215:8000/outfitmatcher/api/v1/outfit', {
+                const res = await fetch(`http://${host}:8000/outfitmatcher/api/v1/outfit`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
