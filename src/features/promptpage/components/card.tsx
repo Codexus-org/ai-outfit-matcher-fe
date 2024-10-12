@@ -23,7 +23,6 @@ export default function Card({dataImage}: CardProps) {
           body: JSON.stringify({ outfitId: _id }),
         })
 
-
         const data = await res.json();
         return data;
       } catch (err) {
@@ -50,7 +49,7 @@ export default function Card({dataImage}: CardProps) {
           </div>
           <div className='flex gap-3 py-2 px-3 border-t border-slate-200 bg-white'>
             <Button startContent={<BookmarkPlus />} onClick={() => handleAddCollection()}> Add to Collection </Button>
-            {isSuccess ? <p className="text-slate-400">Added to Collection</p> : <p></p>}
+            {isSuccess ? <p className="text-green-600 flex items-center font-semibold">Added to Collection</p> : <p></p>}
           </div>
           </>
         ) : (
