@@ -3,7 +3,6 @@ import { Button } from '../../../components/ui/button';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { DataResponse } from '../types/entity';
-// import { handlePromptSubmit } from '../services/prompt';
 
 interface IFormPromptProps {
     getData: (data: DataResponse) => void;
@@ -28,6 +27,7 @@ export default function FormPrompt({ getData }: IFormPromptProps) {
                     credentials: 'include',
                     body: JSON.stringify({ prompt }),
                 });
+                console.log(res.status);
                 const data = res.json();
                 return data;
             } catch (error) {
@@ -49,7 +49,7 @@ export default function FormPrompt({ getData }: IFormPromptProps) {
                 <h3 className="text-xl">Input Prompt</h3>
                 <Textarea placeholder="Prompt" value={prompt} rows={5} onChange={(e) => setPrompt(e.target.value)} />
                 <Button disabled={isPending} onClick={() => handlePrompt()}>
-                  {isPending ? 'Loading...' : 'Submit'}
+                    {isPending ? 'Loading...' : 'Submit'}
                 </Button>
                 {isError && <p className="flex flex-wrap text-red-500">Something went wrong</p>}
             </div>
