@@ -9,6 +9,8 @@ import { IDataCollections } from "../types/entity";
 export default function Collections() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<LoggedInUser | null>(null);
+  const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
+
   console.log(user)
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function Collections() {
   const { data: dataCollections, isLoading, isError } = useQuery<IDataCollections[]>({
     queryKey: ['collections'],
     queryFn: async () => {
-      const res = await fetch ('http://localhost:8000/outfitmatcher/api/v1/outfit/collections', {
+      const res = await fetch (`http://${host}:8000/outfitmatcher/api/v1/outfit/collections`, {
         method: 'GET',
         credentials: 'include'
       })

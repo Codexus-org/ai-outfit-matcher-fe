@@ -10,6 +10,7 @@ interface CardProps {
 
 export default function CardCollection({ dataImage }: CardProps) {
     const { imageOutfit, _id } = dataImage;
+    const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
 
     const { mutate: handleDeleteImage } = useMutation({
         mutationKey: ['imageDelete'],
@@ -20,7 +21,7 @@ export default function CardCollection({ dataImage }: CardProps) {
                 return false;
             }
 
-            const res = await fetch(`http://108.136.163.215:8000/outfitmatcher/api/v1/outfit/collections/${_id}`, {
+            const res = await fetch(`http://${host}:8000/outfitmatcher/api/v1/outfit/collections/${_id}`, {
                 method: 'DELETE',
                 credentials: 'include',
             });
