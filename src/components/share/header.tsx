@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 export default function Header() {
   const navigate = useNavigate();
-  const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
+  // const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
 
   const {
     mutate: handleSubmitLogout
@@ -12,7 +12,7 @@ export default function Header() {
       mutationKey: ['logout'],
       mutationFn: async () => {
         try {
-          const res = await fetch(`http://${host}:8000/outfitmatcher/api/v1/logout`, {
+          const res = await fetch(`http://108.136.163.215:8000/outfitmatcher/api/v1/logout`, {
             method: "POST",
             credentials: "include",
             headers: {

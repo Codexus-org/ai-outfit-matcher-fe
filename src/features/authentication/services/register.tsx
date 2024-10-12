@@ -2,8 +2,8 @@ import { Issue, RegisterArgs } from "../types/entity";
 
 export async function registerUser({ firstName, lastName, username, email, password }: RegisterArgs) {
   try {
-    const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
-    const res = await fetch(`http://${host}:8000/outfitmatcher/api/v1/register`, {
+    // const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
+    const res = await fetch(`http://108.136.163.215:8000/outfitmatcher/api/v1/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

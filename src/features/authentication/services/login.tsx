@@ -3,9 +3,9 @@ import Cookies from 'js-cookie';
 
 export async function loginUser({ email, password }: LoginUserArgs) {
     try {
-        const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
+        // const host = process.env.NODE_ENV === 'production' ? process.env.HOST_PROD : process.env.HOST_DEV; 
 
-        const res = await fetch(`http://${host}:8000/outfitmatcher/api/v1/login`, {
+        const res = await fetch(`http://108.136.163.215:8000/outfitmatcher/api/v1/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
