@@ -21,7 +21,7 @@ export default function CardCollection({ dataImage }: CardProps) {
                 return false;
             }
 
-            const res = await fetch(`http://108.136.163.215:8000/outfitmatcher/api/v1/outfit/collections/${_id}`, {
+            const res = await fetch(`http://localhost:8000/outfitmatcher/api/v1/outfit/collections/${_id}`, {
                 method: 'DELETE',
                 credentials: 'include',
             });

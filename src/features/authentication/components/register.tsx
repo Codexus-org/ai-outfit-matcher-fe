@@ -82,7 +82,7 @@ export const Register = () => {
                 </div>
 
                 {/* continue with google */}
-                <form action="http://localhost:8000/outfitmatcher/api/v1/continue-with-google" method='POST'>
+                <form action="http://108.136.163.215:8000/outfitmatcher/api/v1/continue-with-google" method='POST'>
                   <Button isFull variant="outline" startContent={<GoogleIcon />} className='hover:bg-slate-50 hover:text-blue-500 active:bg-slate-50 focus:bg-slate-50'>
                       Continue with Google
                   </Button>

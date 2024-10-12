@@ -14,13 +14,16 @@ export default function Card({ dataImage }: CardProps) {
         mutationKey: ['addCollection'],
         mutationFn: async () => {
             try {
+                const user = localStorage.getItem('user')
+                const userJson = JSON.parse(user as string);
+                
                 const res = await fetch('http://108.136.163.215:8000/outfitmatcher/api/v1/outfit/save', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     credentials: 'include',
-                    body: JSON.stringify({ outfitId: _id }),
+                    body: JSON.stringify({ outfitId: _id, userId: userJson.id, username: userJson.username }),
                 });
 
                 const data = await res.json();
