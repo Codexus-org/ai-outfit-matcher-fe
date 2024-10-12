@@ -2,7 +2,6 @@ import Header from "../../../components/share/header";
 import CardCollection from "./card.collection";
 import { useEffect, useState } from "react";
 import { LoggedInUser } from "../../promptpage/types/entity";
-import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
 import { IDataCollections } from "../types/entity";
 
